@@ -1,0 +1,222 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="../css/content.css">
+{% endblock %}
+
+{% block body %}
+<main>
+      <!--
+      <div class="example1">
+        <h3
+          style="left: -1400px; top:-800px; font-size: 100em; opacity: 0.1; letter-spacing: -1050px; word-spacing: -800px; animation: example1 220s;  color: #FF5C00;">
+          été&nbsp;indien </h3>
+        <h3>ETE&nbsp;INDIEN&nbsp;&nbsp;&nbsp;ETE&nbsp;INDIEN </h3>
+        <h2>videos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;videos</h2>
+      </div>
+  -->
+      <!-- <p style="position: absolute; height:100%; font-size:210px; writing-mode: vertical-rl; text-orientation: upright; font-weight:900; font-familly: arial; letter-spacing: -120px; word-spacing: -130px; z-index: -200; color: orange;">ETE INDIEN</p>  -->
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand"href="#"><img src="../img/logo1.png" alt="logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="mobile-tel">
+                    <a class="telm" href="#">Tel: +333333333</a><br>
+                    <a class="telm" href="mailto:bonjour@ete-indien-editions.fr">Mail: bonjour@ete-indien-editions.fr</a>
+                </div>
+            <a class="logo_mobile"href="#"><img src="../img/logos/logogris.jpg" alt="logo"></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <a class="home"href="#" style="color: #FF5C00 !important; "> <i class="fas fa-home fa-2x"></i>
+                    </a>
+                    <li class="dropdown"">
+                        <button class=" dropbtn">VIDEOS</button>
+                        <div class="dropdown-content" id="myBtnContainer">
+                            <a id="drop" class="filt active"href="#" onclick="filterSelection('all')">TOUT VOIR</a>
+                            <a id="drop" class="filt"href="#" onclick="filterSelection('gym-douce')">GYM DOUCE</a>
+                            <a id="drop" class="filt"href="#" onclick="filterSelection('prevention-des-chutes')">PRÉVENTION DES CHUTES</a>
+                            <a id="drop" class="filt"href="#" onclick="filterSelection('maladies-cardio-vasculaires')">MALADIES CARDIO-VASCULAIRES</a>
+                            <a id="drop" class="filt"href="#" onclick="filterSelection('arthrose')">ARTHROSE</a>
+                            <a id="drop" class="filt"href="#" onclick="filterSelection('qi-gong')">QI GONG</a>
+                            <a id="drop" class="filt"href="#" onclick="filterSelection('gi-gong')">GI GONG SUR CHAISE</a>
+                            <a id="drop" class="filt"href="#" onclick="filterSelection('gym-sur-chaise')">GYM SUR CHAISE</a>
+                            <a id="drop" class="filt"href="#" onclick="filterSelection('gym-douce-aidants')">GYM DOUCE POUR LES AIDANTS</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="float-right">
+                    <p class="tel" href="#">Tel: +3333333</p><br>
+                    <a class="tel" href="mailto:bonjour@ete-indien-editions.fr">Mail: bonjour@ete-indien-editions.fr</a>
+                </div>
+            </div>
+        </nav>
+      </header>
+      <div class="container-fluid">
+          <div class="col-2" id="head">
+            <img src="../img/logos/logo.jpg" alt="logo">
+          </div>
+          <hr class="col-4" id="hr">
+          <div class="row justify-content-center text-center mx-auto">
+          <div class="col-1 prev">
+
+            <a class="content-control-prev" href="#">
+              < </a> </div> 
+              <div class="col-12 col-md-10 p-0 content">
+                <div class="content-inner">
+                  <div class="content-item" id="main-vid">
+                    <p class="content-title">{{ video.titreVideo}}</p>
+                    <p id="head-para2">
+                      <span class="mot">Catégorie:&nbsp</span><a href="#" style="color: #ff5c00!important;">{{ video.genreVideo}}</a>
+                      <span class="mot">Durée:</span> {{ video.dureeVideo | date('i:s')}}
+                    </p>
+                    <div class="row justify-content-center mx-auto" id="lecteur">
+                      <div class="col-12" id="vid">
+                        <div class="lecteur_frame">
+                          <video id="videoPlayer" ontimeupdate="update(this)" width="600em" height="300em" preload="auto">
+                            <!--mp4 en tête de liste pour compatibilité portable -->
+                            <source src="{{ video.adresseVideo}}" type="video/mp4">
+                            Si la vidéo ne s'affiche pas correctement, merci de mettre à jour votre navigateur !!
+                          </video>
+                          <div id="progressBarControl">
+                            <div id="progressBar" onclick="clickProgress('videoPlayer', this, event)"></div>
+                          </div>
+                        </div>
+                        <div class="barre">
+                          <div class="controls-L">
+                            <button id="playBtn" class="control" onclick="play('videoPlayer', this)"><i
+                                class="far fa-play-circle fa-2x" id="transportIcon"></i></button>
+                            <button class="control" onclick="resume('videoPlayer')"><i
+                                class="far fa-stop-circle fa-2x"></i></button>
+                          </div>                       
+                          <div class="controls-R">
+                            <span class="volume">
+                              <a class="stick1" onclick="volume('videoPlayer', 0)"></a>
+                              <a class="stick2" onclick="volume('videoPlayer', 0.3)"></a>
+                              <a class="stick3" onclick="volume('videoPlayer', 0.5)"></a>
+                              <a class="stick4" onclick="volume('videoPlayer', 0.7)"></a>
+                              <a class="stick5" onclick="volume('videoPlayer', 1)"></a>
+                            </span>
+                            <button class="control" id="grdecran" onclick="fullscreen()"><i
+                                class="fas fa-compress fa-2x"></i></button>
+                          </div>
+                        </div>
+                      </div>
+  
+                    </div>
+                    <div class="row mx-auto" id="para">
+                      <div class="col-md-2"></div>
+                      <div class="col-md-8">
+                        <p id="head-para">{{ video.descriptionVideo | raw }}</p>
+                      </div>
+                      <div class="col-md-2"></div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="col-1 prevm">
+
+            <a class="content-control-prev" href="#">
+              < </a> </div> 
+          <div class="col-1 next">
+
+            <a class="content-control-next" href="#">
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr class="col-4" id="hr" style="margin-bottom: -2%;">
+      <div class="d-flex flex-row car">
+        <div id="recipeCarousel" class="carousel slide w-100  justify-content-center" data-ride="carousel">
+        <h4 class="car-title">Autres vidéos</h4>
+        <div class="carousel" data-flickity='{ "groupCells": true, "prevNextButtons": true }'>
+            <div class="carousel-cell">
+                        <a href="#"><img src="http://placehold.it/350x150"></a>
+                    </div>
+               
+            </div>
+        </div>
+    </div>
+    
+  
+  </main>
+
+
+  <div class="container-fluid" id="footer">
+    <div class="row mx-auto  justify-content-center align-text-center mt-2 mb-2">
+        <div class="col-md-2"  id="foot-title">
+            <div class="c-content-title-1"> <img
+                    src="https://www.ete-indien-editions.fr/wp-content/uploads/logo-ete-indien-editions.png"
+                    data-lazy-src="https://www.ete-indien-editions.fr/wp-content/uploads/logo-ete-indien-editions.png"
+                    class="lazyloaded" data-was-processed="true"><noscript><img
+                        src="https://www.ete-indien-editions.fr/wp-content/uploads/logo-ete-indien-editions.png" /></noscript>
+            </div>
+        </div>
+        <div class="col-md-4" id="foot-text">
+            <p class="c-about">Programmes de prévention santé par l'activité physique adaptée en présentiel &amp; vidéo pour les personnes seniors.</p>
+        </div>
+        <div class="col-md-6">
+            <div class="row mx-auto mt-2">
+                <div class="c-links">
+                    <ul id="menu-menu-du-pied-de-page" class="c-nav">
+                        <div class="row mx-auto">
+                            <div class="col-md-6">
+                                <li id="menu-item-285"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285"><a
+                                        href="https://www.ete-indien-editions.fr/precautions/"
+                                        class="c-link">Précautions</a>
+                                </li>
+                                <li id="menu-item-302"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-302"><a
+                                        href="https://www.ete-indien-editions.fr/regarder-seances-television/"
+                                        class="c-link">Comment
+                                        regarder sur votre TV ?</a></li>
+                                <li id="menu-item-255"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-255"><a
+                                        href="https://www.ete-indien-editions.fr/contact/" class="c-link">Contact</a>
+                                </li>
+                            </div>
+                            <div class="col-md-6">
+                                <li class="fon" id="menu-item-284"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-284">
+                                    <a href="https://www.ete-indien-editions.fr/protection-donnees-personnelles/"
+                                        class="c-link">Protection
+                                        des données personnelles</a></li>
+                                <li class="fon" id="menu-item-258"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-258"><a
+                                        href="https://www.ete-indien-editions.fr/mentions-legales/"
+                                        class="c-link">Mentions
+                                        Légales</a></li>
+                                        <li id="menu-item-257"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-257"><a
+                                        href="https://www.ete-indien-editions.fr/foire-aux-questions/"
+                                        class="c-link">Foire aux
+                                        Questions</a></li>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-auto">
+        <p class="c-contact">© OJ2B - SAS au capital de 1000€
+            enregistrée au
+            RCS de Sedan sous le numéro de SIRET 827 524 737 00018 <br>Siège social : 111 boulevard Gambetta
+            08000
+            Charleville Mézières</p>
+    </div>
+    <div class="row mx-auto justify-content-center align-text-center">
+        <a href="https://www.youtube.com/channel/UCEpjfMrcnR8dRO_CBYTccHA" class="fonta"> <i class="fab fa-youtube fa-2x" ></i>
+        </a>
+        <a href="https://www.facebook.com/eteindieneditions/" class="fonta"> <i class="fab fa-facebook fa-2x"></i>
+        </a>
+        <a href="https://twitter.com/editionsete" class="fonta"> <i class="fab fa-twitter fa-2x"></i> </a>
+        </ul>
+    </div>
+</div>
+
+  {% endblock %}
