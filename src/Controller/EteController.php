@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\VideoRepository;
 use App\Entity\Admin;
 use App\Entity\Mutuelle;
@@ -22,6 +24,14 @@ class EteController extends AbstractController
     }
 
     /**
+     * @Route("/bla", name="bla")
+     */
+    public function bla() 
+    {
+        return $this->render("ete/home.html.twig");
+    }
+
+    /**
      * @Route("/ete", name="ete")
      */
     public function index(VideoRepository $repo)
@@ -34,6 +44,29 @@ class EteController extends AbstractController
         return $this->render('ete/index.html.twig', [
             'controller_name' => 'EteController',
             'videos' => $videos
+        ]);
+    }
+    
+    /**
+     * @Route("/ete/admin", name="create")
+     */
+    public function create(Request $request, ObjectManager $manager) {
+    $video = new Video();
+
+    $form = $this->createFormBuilder($video)
+             ->add('titre_video')
+             ->add('date_upload')
+             ->add('duree_video')
+             ->add('coach_video')
+             ->add('adresse_video')
+             ->add('img_video')
+             ->add('genre_video')
+             ->add('description_video')
+             ->getForm();
+
+
+        return $this->render('ete/admin/create.html.twig', [
+            'formVideo' => $form->createView()
         ]);
     }
 
@@ -49,5 +82,6 @@ class EteController extends AbstractController
             'video' => $video
         ]);
     }
+
 
 }
